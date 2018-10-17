@@ -1,23 +1,9 @@
 package aleksandarCosicDomaci3;
 
-import java.util.Arrays;
 import java.util.Random;
 
 public class TestSort3 {
-	
-	public static int min(int[] a, int start) {
-		int min = start;
-		int minIndex = start;
-		for (int i = start; i < a.length; i++) {
-			System.out.println(a[i]);
-			if(a[i] < min) {
-				min = a[i];
-				minIndex = i;
-			}
-		}
-		return minIndex;
-	}
-	
+		
 	public static int randomInt() {
 		Random rand = new Random();
 		return rand.nextInt((100 - 1) + 1) + 1;
@@ -58,8 +44,20 @@ public class TestSort3 {
 		return a;
 	}
 	
+	public static int min(int[] a, int start) {
+		int min = a[start];
+		int minIndex = start;
+		for (int i = start; i < a.length; i++) {
+			if(a[i] < min) {
+				min = a[i];
+				minIndex = i;
+			}
+		}
+		return minIndex;
+	}
+	
 	public static int[] selectSort(int[] a) {
-		for (int i = 0; i < a.length - 1; i++) {
+		for (int i = 0; i < a.length; i++) {
 			int j = min(a, i);
 			int t = a[i];
 			a[i] = a[j];
@@ -69,13 +67,23 @@ public class TestSort3 {
 	}
 	
 	public static void main(String[] args) {
-		int[] a = arrayFiller(10);
-		int[] A = arrayFiller(10000);
+		int[] A = arrayFiller(100000);
 		
+		long bubbleStart = System.currentTimeMillis();
+		bubbleSort(A);
+		long bubbleEnd = System.currentTimeMillis();
+
+		long insertStart = System.currentTimeMillis();
+		insertSort(A);
+		long insertEnd = System.currentTimeMillis();
+
+		long selectStart = System.currentTimeMillis();
+		selectSort(A);
+		long selectEnd = System.currentTimeMillis();
 		
-//		System.out.println(Arrays.toString(bubbleSort(A)));
-//		System.out.println(Arrays.toString(insertSort(A)));
-		System.out.println(Arrays.toString(selectSort(a)));
+		System.out.println("Bubble sort: " + (bubbleEnd - bubbleStart));
+		System.out.println("Insert sort: " + (insertEnd - insertStart));
+		System.out.println("Select sort: " + (selectEnd - selectStart));
 	}
 
 }
